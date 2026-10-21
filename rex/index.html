@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Draft front-desk agent for Rex</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1c1b19;--mute:#6b6860;--line:#e3e0d8;--accent:#2f5d50;--accent-ink:#fff;--bubble:#ecebe4;--warn:#8a5a00;--warnbg:#fff4dc}
+@media(prefers-color-scheme:dark){:root{--bg:#161614;--card:#1f1f1c;--ink:#efede6;--mute:#a09d94;--line:#34332e;--accent:#6fb09c;--accent-ink:#10201b;--bubble:#2a2a26;--warn:#f0c46a;--warnbg:#3a2f14}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.25rem;margin:0 0 4px}.sub{color:var(--mute);margin:0 0 16px;font-size:.95rem}
+.note{font-size:.82rem;color:var(--mute);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px;background:var(--card)}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;min-height:220px}
+.msg{margin:0 0 12px;max-width:92%}.msg.u{margin-left:auto;text-align:right}
+.b{display:inline-block;padding:9px 12px;border-radius:12px;background:var(--bubble);text-align:left}
+.u .b{background:var(--accent);color:var(--accent-ink)}
+.src{display:block;margin-top:6px;font-size:.8rem;color:var(--mute);border-left:3px solid var(--line);padding-left:8px}
+.hand{display:block;margin-top:8px;font-size:.84rem;background:var(--warnbg);color:var(--warn);border-radius:8px;padding:8px 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{font:inherit;font-size:.9rem;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip:hover,.chip:focus-visible{border-color:var(--accent);outline:none}.chip[disabled]{opacity:.45;cursor:default}
+.intro{color:var(--mute);font-size:.9rem;margin:0}
+.cta{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:.95rem}
+.foot{margin-top:18px;color:var(--mute);font-size:.78rem}
+a{color:var(--accent)}
+</style></head><body><main>
+<h1>Draft front-desk agent for Rex</h1>
+<p class="sub">AI operations partner for order-to-cash: collections, invoice portal uploads and payment reconciliation on top of existing finance systems.</p>
+<div class="note">Unofficial draft by AxonCrew. Built on 21 Oct 2026 only from the public pages of <a href="https://rex.inc">rex.inc</a>. Not affiliated with Rex, no logos or private data used. Tap a question to see how it would answer, with the line from your site it relies on.</div>
+<div class="chat" id="chat" aria-live="polite"><p class="intro">Hi, I answer questions about Rex using only what is on your public site. If I can't find it, I say so and hand over to the Rex team.</p></div>
+<div class="chips" id="chips"></div>
+<div class="cta"><strong>Want this live on your site?</strong> It would answer from your real docs, ask your team before acting, and log every conversation. Reply to my email and we will take 12 minutes to see if it fits.</div>
+<p class="foot">Built by <a href="https://axoncrew.com">AxonCrew</a> (Shiva Saini). If you would rather this page not exist, reply "stop" and it is removed.</p>
+</main>
+<script>
+const QA=[["What does Rex do?", "It runs accounts receivable work: collections, invoice portal uploads, cash application, payment reconciliation and AR inbox management.", "collections, invoice portal uploads, cash application, payment reconciliation, and AR inbox management."], ["Do I have to replace my ERP?", "No. Rex works with the existing finance stack.", "Rex works with your existing finance stack rather than replacing it."], ["How fast can we go live?", "Most teams go live in under two weeks.", "Most teams can go live with Rex in under two weeks."], ["How is Rex priced?", "Around outcomes, not seats. Dollar amounts are not on the site.", "Rex is priced around outcomes, not seats."], ["How is our data protected?", "SOC 2 Type II certified and AES-256 encrypted, with role-based access control and a full audit trail of every action.", "SOC 2 Type II certified"]];const TEAM="the Rex team",CONTACT="hello@rex.inc";
+const chat=document.getElementById('chat'),chips=document.getElementById('chips');
+function add(cls,node){const d=document.createElement('div');d.className='msg '+cls;const b=document.createElement('span');b.className='b';b.appendChild(node);d.appendChild(b);chat.appendChild(d);d.scrollIntoView({block:'nearest',behavior:'smooth'});return b}
+function txt(t){return document.createTextNode(t)}
+QA.forEach((q,i)=>{const c=document.createElement('button');c.className='chip';c.textContent=q[0];c.onclick=()=>{c.disabled=true;add('u',txt(q[0]));setTimeout(()=>{const f=document.createDocumentFragment();
+ if(q[1]){f.appendChild(txt(q[1]));if(q[2]){const s=document.createElement('span');s.className='src';s.textContent='From your site: \u201c'+q[2]+'\u201d';f.appendChild(s)}}
+ else{f.appendChild(txt("I can't find that on the public site, so I won't guess."));if(q[2]){const s=document.createElement('span');s.className='src';s.textContent='Closest line on your site: \u201c'+q[2]+'\u201d';f.appendChild(s)}
+  const h=document.createElement('span');h.className='hand';h.textContent='Hand-off: I take the visitor\u2019s name, email and question, and send it to '+TEAM+' ('+CONTACT+') so a person answers.';f.appendChild(h)}
+ const b=add('a',document.createTextNode(''));b.textContent='';b.appendChild(f)},350)};chips.appendChild(c)});
+</script></body></html>
